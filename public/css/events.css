@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300&family=Caveat+Brush&family=Caveat:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Alexandria', sans-serif;
+}
+
+body {
+    background: url('imgs/landing-page.png') no-repeat;
+    background-size: cover;
+    height: 1140px;
+}
+
+.div-body {
+    height: 1140px;
+    display: flexbox;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.71);
+    /* border: solid 1px pink; */
+}
+
+.background img{
+    background: url('imgs/landing-page.png') no-repeat;
+    background-size: cover;
+    height: 1140px;
+    position: fixed;
+    z-index:-1;
+    background: no-repeat;
+    background-size: cover;    
+    width: 100%;
+}
+
+.main-body {
+    height: 800px;
+    display: flexbox;
+    flex-direction: column;
+}
+
+.city_page {
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    /* border: solid 1px red; */
+    justify-content: center;
+    align-items: center;
+}
+
+.event_element {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border: solid 1px blue; */
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.466);
+    border-radius: 10px;
+    height: 70px;
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 50px;
+    position: static;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.name {
+    justify-content: left;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.details {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    width: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    float: right;
+}
+
+.city_name {
+    color: white;
+}

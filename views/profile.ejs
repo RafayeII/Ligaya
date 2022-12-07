@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/general.css">
+</head>
+<body>
+<div class="div-body">
+    <%- include('header'); -%>
+    <div class="background">
+        <img src="imgs/login-page.png"/>
+    </div>
+    <div class="main-body">
+        <div class="profile-page">
+            <div class="R_Profile">
+                <div class="profile-img">
+                    <img src="imgs/Profile Picture.png" class="R_PicImg">
+                </div>
+                <div class="profile-edit">
+                    <input type="file" id="R_File">
+                    <label for="R_File" class="R_UploadBtn">Choose Photo</label>
+                </div>
+            </div>
+
+            <h1 class="R_ProfileName" id="R_Name"><%=username%></h1>
+            <a href="edit" class="R_EditBtn" id="R_Edit">EDIT</button>
+            <a href="password" class="R_EditPass" id="R_EditPass">PASSWORD</button>
+            <a href="/logout" class="R_SignOutBtn" role="button">SIGN OUT</a>
+
+            <div class="R_ProfileInformation">
+                <div class="R_Biography">
+                    <h2 class="R_TitleInfo">Biography</p>
+                    <p class="R_Info" id="R_BioInfo"><%=bio%></p>
+                </div>
+                <div class="R_Hobbies">
+                    <h2 class="R_TitleInfo">Hobby</p>
+                    <p class="R_Info" id="R_HobbyInfo"><%=hobby%></p>
+                </div>
+                <div class="R_Contacts">
+                    <h2 class="R_TitleInfo">Contact Number</p>
+                    <p class="R_Info" id="R_ContactInfo"><%=contact%></p>
+                </div>
+                <div class="R_Links">
+                    <h2 class="R_TitleInfo">Link</p>
+                    <p class="R_Info" id="R_LinkInfo"><%=link%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('footer'); -%>
+<script type="text/javascript" src="js/editPicture.js"></script>
+</div>
+</body>
+</html>

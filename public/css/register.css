@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300&family=Caveat+Brush&family=Caveat:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Alexandria', sans-serif;
+}
+
+body {
+    background: url('imgs/landing-page.png') no-repeat;
+    background-size: cover;
+    height: 1140px;
+}
+
+.div-body {
+    height: 1140px;
+    display: flexbox;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.71);
+    /* border: solid 1px pink; */
+}
+
+.background img{
+    background: url('imgs/landing-page.png') no-repeat;
+    background-size: cover;
+    height: 1140px;
+    position: fixed;
+    z-index:-1;
+    background: no-repeat;
+    background-size: cover;
+    width: 100%;
+}
+
+.main-body {
+    height: 800px;
+    display: flexbox;
+    flex-direction: column;
+}
+
+.info {
+    height: 800px;
+    /* border: solid 1px blue; */
+    display: flex;
+    flex-direction: column;
+}
+
+.title-box {
+    height: 100px;
+    /* border: solid 1px red; */
+    width: 15%;
+    margin-top: 130px;
+    left: 50%;  
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: relative;
+}
+
+.sun img {
+    height: 80px;
+    width: 80px;
+    margin-top: -50px;
+    margin-left: 60%;
+}
+
+.title {
+    font-family: 'Caveat Brush', cursive;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+}
+
+.form-box {
+    height: 480px;
+    /* border: solid 1px yellow; */
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    width: 50%;
+    top: 190px;
+    left: 50%;  
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.form img {
+    height: 60px;
+    width: 60px;
+
+}
+
+.form-img {
+    margin-top: 20px;
+    height: 100px;
+    /* border: solid 1px orangered; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form .input-group input:focus + label,
+.form .input-group input:valid + label {
+    transform: translateY(-18px);
+    color: #a79f80;
+    font-size: .8rem;
+}
+.form .input-box input {
+    width: 70%;
+    padding: 10px 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #FFF9ED;
+    outline: none;
+    background-color: transparent;
+    color: white;
+}
+.input-box {
+    /* border: solid 1px green; */
+    padding-top: 30px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-box {
+    height: 50px;
+    width: 273px;
+    /* border: solid 1px blueviolet; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-box {
+    /* border: solid 1px cyan; */
+    margin-top: 20px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.button-box input {
+    border: 0px;
+    border-radius: 8px;
+    font-size: 20px;
+    height: 40px;
+    width: 150px;
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    transition: all 0.4s;
+}
+
+.button-box input:hover {
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+}
+
+.sign-up {
+    margin-top: 6px;
+}
+
+.button-box a {
+    color: white;
+    font-size: 14px;
+    transition: all 0.4s;
+    border-radius: 8px;
+    text-align: center;
+    height: 30px;
+    width: 80px;
+    text-decoration: none;
+    background-color: black;
+    transition: all 0.4s;
+}
+
+.button-box button:hover {
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+}
+
+.button-box a:hover {
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+}
+

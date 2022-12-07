@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300&family=Caveat+Brush&family=Caveat:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Alexandria', sans-serif;
+}
+
+body {
+    background: url('imgs/landing-page.png') no-repeat;
+    background-size: cover;
+    height: 1140px;
+}
+
+.div-body {
+    max-height: 1140px;
+    display: flex;
+    flex-direction: column; 
+    
+    background-color: rgba(0, 0, 0, 0.71);
+    /* border: solid 1px pink; */
+}
+
+.main-body {
+    height: 800px;
+    display: flexbox;
+    flex-direction: column;
+}
+
+.background {
+    background-size: cover;
+    /* height: 70vh; */
+    width: 100%;
+    background: no-repeat;
+    position:fixed;
+    z-index: -1; 
+}
+
+.background img {
+    z-index: -1;
+    background-size: cover;
+    max-height: 1140px;
+    background: no-repeat;
+}
+
+.home_page {
+    /* position: relative; */
+    height: 800px;
+    display: flex;
+    flex-direction: row;
+    /* border: solid 1px red; */
+    justify-content: center;
+    align-items: center;
+}
+
+.home_element {
+    /* border: solid 1px red; */
+    /* background-color: rgba(255, 255, 255, 0.466); */
+    /* border-radius: 10px; */
+    margin-top: 25px;
+    margin-bottom: 17px;
+    margin-left: 20px;
+}
+
+.element_img {
+    background-color: rgba(255, 255, 255, 0.466);
+    border-radius: 10px;
+    height: 250px;
+    align-items: center;
+    display: block;
+    justify-content: center;
+    color: #000;
+    /* position: fixed; */
+    /* border: solid 1px blue; */
+
+}
+
+.element_img:hover{
+    background-color: rgba(0, 0, 0, 0.466);
+    color: #fff;
+}
+
+.element_title {
+    /* height: 300px; */
+    font-size: 20px;
+    /* border: solid 1px yellow; */
+    text-align: center;
+    width: 330px;
+    margin-left: 10px;
+    margin-top: -10px;
+    /* position: fixed; */
+}
+
+.element_img img{
+    /* height: 300px; */
+    width: 350px;   
+    padding: 10px;
+    /* margin-top: 20px; */
+}

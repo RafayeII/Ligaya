@@ -1,0 +1,434 @@
+/* Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Variables */
+.Pattern {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    height: 98%;
+    width: 100%;
+    z-index: -10; /* puts behind everything */
+}
+
+:root {
+    --container-color: #1a1e21;
+    --second-color: #fd8f44;
+    --text-color: #fff;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+li {
+    list-style: none;
+}
+
+.logo {
+    width: 30%;
+}
+
+img {
+    width: 100%;
+}
+
+section {
+    padding: 3rem 0 2rem;
+}
+
+.container {
+    max-width: 1068px;
+    margin: auto;
+    width: 100%;
+}
+
+/*----------------------- USER POSTING SECTION ---------------------->*/
+.user-post-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-top: -20%; */
+    
+}
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+#searchbar {
+    background-color: none;
+}
+
+form:not(#searchbar) {
+    background-color: rgba(255,255,255,.85);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 2vw;
+    width: 90%;
+    max-width: 800px;
+    max-height: 650px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+form h3 {
+    color: #2f4858;
+    font-weight: 800;
+    font-size: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+form input:not(#searchInpt), form textarea:not(#searchInpt) {
+    border: 0;
+    margin: 10px 0;
+    padding: 20px;
+    outline: none;
+    background: #f5f5f5;
+    font-size: 16px;
+}
+
+form button:not(#searchBtn) {
+    padding: 10px;
+    background: #2f4858;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    width: 200px;
+    margin: 20px auto 0;
+    border-radius: 30px;
+}
+
+.user-post {
+    background-color: rgba(255,255,255,.85);
+    padding: 25px 25px;
+    max-width: 800px;
+    max-height: 400px;
+    margin: auto;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    /* -webkit-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px; */
+}
+
+.post-box-area {
+    position: relative;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.post-box-area::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+.input-editable {
+    outline: none;
+    color: #000;
+    font-size: 100%;
+    height: 100px;
+}
+
+.post-placeholder {
+    position: absolute;
+    top: -0.2rem;
+    font-size: 110%;
+    color: #98a5b1;
+    pointer-events: none;
+}
+
+.post-footer-box {
+    /* border-top: 1px solid #98a5b1; */
+    margin: 5px 5px;
+}
+
+.post-footer-icons {
+    display: flex;
+    list-style: none;
+    color: #15C39A;
+}
+
+.post-footer-icons li {
+    margin: 20px 5px;
+    position: relative;
+    right: 8px;
+    font-size: 100%;
+    border-radius: 60%;
+    -webkit-border-radius: 60%;
+    -moz-border-radius: 60%;
+    -ms-border-radius: 60%;
+    -o-border-radius: 60%;
+    cursor: pointer;
+}
+
+.post-footer-icons li i {
+    padding: 10px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+.post-footer-icons li i:hover {
+    color: white;
+    background-color: #15C39A;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.post-category {
+    padding: 25px;
+    position: relative;
+    width: 200px;
+    height: 50px;
+}
+
+.post-limit {
+    float: right;
+    transform: translateY(-4.6rem);
+    -webkit-transform: translateY(-4.6rem);
+    -moz-transform: translateY(-4.6rem);
+    -ms-transform: translateY(-4.6rem);
+    -o-transform: translateY(-4.6rem);
+}
+
+.post-limit .post-counter-limit {
+    border-right: 1px solid gray;
+    padding: 0 18px;
+    margin: 0 15px;
+    font-size: 100%;
+    color: #98a5b1;
+    visibility: hidden;
+}
+
+.post-btn {
+    background-color: #15C39A;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 15px;
+    /* border: none; */
+    border-radius: 20px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border: transparent;
+    font-size: 90%;
+    opacity: 0.3;
+}
+
+.active-btn {
+    opacity: 1;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+/*----------------------- POSTFILTER NAVBAR ---------------------->*/
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 0;
+}
+
+/* Post Filter */
+.post-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1.5rem;
+    margin-top: 2rem !important;
+}
+
+.filter-item { 
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: white;
+}
+
+.filter-item::after {
+    content: "";
+    position: absolute;
+    background-color: white;
+    height: 3px;
+    width: 0;
+    left: 0;
+    bottom: -10px;
+    transition: 0.3s;
+}
+
+.filter-item:hover::after {
+    width: 100%;
+}
+
+.active-filter {
+    background: black;
+    color: white;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/*----------------------- POST/REVIEWS/GROUPS ---------------------->*/
+.post-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1000px, auto));
+    grid-template-columns: 800px 800px;
+    justify-content: center;
+    gap: 1.5rem;
+    height: 710px;
+    /* border: solid 1px yellow; */
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color: rgba(255, 255, 255, 0.466);
+    border-radius: 10px;
+    width: 90%;
+}
+
+.post-box {
+    background-color: rgba(255,255,255,.7);
+    /* background: linear-gradient(72.44deg, #FFCDA5 0%, #EE4D5F 100%); */
+    /* background-color: white; */
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    padding: 15px;
+    border-radius: 0.8rem;
+}
+
+.join {
+    max-width: 350px;
+    margin: auto;
+    width: 100%;
+}
+
+.post-img {
+    width: 100%;
+    height: 156px;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid black;
+    border-radius: 0.8rem;
+}
+
+.category {
+    font-size: 0.9rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.post-title {
+    font-size: 1.3rem;
+    font-weight: 1000;
+    color: #2f4858;
+    
+}
+
+.post-date {
+    display: flex;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    /* margin-top: 1.5px; */
+}
+
+.post-description {
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    margin: 5px 0 10px;
+    margin-top: 20px; 
+    margin-bottom: 20px;   
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-name {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.profile-img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 1.5px solid black;
+}
+ 
+.stars {
+    color: black;
+    text-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    /* text-shadow: 0 0 5px black; */
+}
+
+.ratings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.GROUPBOX {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.Groupsbutton {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.joingroupbtn {
+    font-family: "Roboto", sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #2196f3;
+    background: rgba(161,47,82,.6);
+    border: 1px solid black;
+    border-radius: 15%;
+    width: 160px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    color: black;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.joingroupbtn:hover {
+   color: white;
+   background: #2196f3;
+   box-shadow: 0 0 10px #2196f3;
+}
