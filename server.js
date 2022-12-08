@@ -5,20 +5,17 @@ const bodyParser = require('body-parser')
 const mysql = require('mysql');
 const MySQLStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
-const {Client} = require('pg')
 
 const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
-const db = new Client({
+const db = mysql.createPool({
   host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
-  password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
+  password : process.env.DB_PASS,
   database : process.env.DB_NAME,
   port     : process.env.PORT,
-  max      : 100,
-  idleTimeoutMillis : 30000,
-  connectionTimeoutMillis : 20000
+  connectionLimit : 100	 
 });
 
 //CREATES SESSION IN DATABASE
@@ -34,9 +31,6 @@ const sessionStore = new MySQLStore({
     }
   }
 }, db);
-
-//CONFIRMS CONNECTION OR THROWS ERROR
-db.connect();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
