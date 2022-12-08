@@ -13,26 +13,14 @@
         </div>
         <div class="city_page">
             <div class="city_name"><h1>PASAY</h1></div>
-            <div class="event_element">
-                <div class="name"><p>FUN RUN</p></div>
-                <a href="funrun">
-                    <div class="details"><p>View Details</p></div>
-                </a>
-            </div>
-    
-            <div class="event_element">
-                <div class="name"><p>FESTIVAL</p></div>
-                <a href="festival">
-                    <div class="details"><p>View Details</p></div>
-                </a>
-            </div>
-    
-             <div class="event_element">
-                <div class="name"><p>TOURNAMENT</p></div>
-                <a href="tournament">
-                    <div class="details"><p>View Details</p></div>
-                </a>
-            </div>
+                <% pasay.forEach(function(event){ %>
+                    <div class="event_element">
+                        <div class="name"><p><%=event.name%></p></div>
+                            <a href="<%=event.url%>">
+                                <div class="details"><p>View Details</p></div>
+                            </a>
+                    </div>
+                <% }); %>
          </div>
     </div>
     <%- include('footer'); -%>
