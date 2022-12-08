@@ -39,14 +39,6 @@ db.connect(function(err) {
   else
     console.log('connected as ID' + db.threadId);
 });
-db.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-  else
-    console.log('connected as ID' + db.threadId);
-});
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
