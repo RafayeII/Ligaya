@@ -9,12 +9,13 @@ const bcrypt = require('bcrypt');
 const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
-const db = mysql.createConnection({
+const db = mysql.createPool({
   host     : process.env.DB_HOST,
   port     : process.env.PORT,
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
   database : process.env.DB_NAME,
+  connectionLimit : 10
 });
 
 //CREATES SESSION IN DATABASE
@@ -31,15 +32,7 @@ const sessionStore = new MySQLStore({
   }
 }, db);
 
-//CONFIRMS CONNECTION OR THROWS ERROR
-db.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-  else
-    console.log('connected as ID' + db.threadId);
-});
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
