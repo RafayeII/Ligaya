@@ -15,7 +15,7 @@ const db = new Client({
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
   database : process.env.DB_NAME,
-  port     : 5432
+  port     : process.env.PORT
 });
 
 //CREATES SESSION IN DATABASE
@@ -387,4 +387,4 @@ app.get('/tagaytay', (req, res) => {
 });
 
 //PORT IS 3000
-app.listen(3000, () => console.log('listening on port 3000!'));
+app.listen(process.env.PORT || 3000, () => console.log('Website is Active'));
