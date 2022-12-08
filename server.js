@@ -5,16 +5,15 @@ const bodyParser = require('body-parser')
 const mysql = require('mysql');
 const MySQLStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
-const {Client} = require('pg')
 
 const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
-const db = new Client({
+const db = mysql.createConnection({
   host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
-  password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
-  database : process.env.DB_NAME,
+  password : process.env.DB_PASS,
+  database : process.env.DB_NAME
 });
 
 //CREATES SESSION IN DATABASE
@@ -32,7 +31,14 @@ const sessionStore = new MySQLStore({
 }, db);
 
 //CONFIRMS CONNECTION OR THROWS ERROR
-db.connect();
+db.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+  else
+    console.log('connected as ID' + db.threadId);
+});
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -385,5 +391,4 @@ app.get('/tagaytay', (req, res) => {
     res.redirect('login');
 });
 
-//PORT IS 3000
 app.listen(3000, () => console.log('listening on port 3000!'));
