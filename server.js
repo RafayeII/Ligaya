@@ -15,6 +15,7 @@ const db = new Client({
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
   database : process.env.DB_NAME,
+  port     : 5432
 });
 
 //CREATES SESSION IN DATABASE
