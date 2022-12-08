@@ -11,13 +11,14 @@ const app = express();
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
 const db = mysql.createPool({
   connectionLimit : 1000,
-  connectTimeout  : 60 * 60 * 1000,
-  acquireTimeout  : 60 * 60 * 1000,
-  timeout         : 60 * 60 * 1000,
+  connectTimeout  : 10000000000,
+  acquireTimeout  : 10000000000,
+  timeout         : 10000000000,
   host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,
   database : process.env.DB_NAME, 
+  port     : process.env.PORT
 });
 
 //CREATES SESSION IN DATABASE
