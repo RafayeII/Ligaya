@@ -2,14 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser')
-const mysql = require('mysql');
+const {createPool} = require('mysql');
 const MySQLStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
 
 const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
-const db = mysql.createConnection({
+const db = createPool({
   host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,
@@ -30,16 +30,7 @@ const sessionStore = new MySQLStore({
   }
 }, db);
 
-//CONFIRMS CONNECTION OR THROWS ERROR
-db.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    db.disconnect();
-    return;
-  }
-  else
-    console.log('connected as ID' + db.threadId);
-});
+
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
