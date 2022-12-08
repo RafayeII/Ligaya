@@ -392,4 +392,4 @@ app.get('/tagaytay', (req, res) => {
     res.redirect('login');
 });
 
-app.listen(process.env.PORT || 3000, () => console.log('Website is Active');
+app.listen(process.env.PORT || 3000, () => console.log('Website is Active'));
