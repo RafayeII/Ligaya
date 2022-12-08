@@ -387,4 +387,4 @@ app.get('/tagaytay', (req, res) => {
 });
 
 //PORT IS 3000
-app.listen(3000, () => console.log('Website is Active'));
+app.listen(process.env.PORT, () => console.log('Website is Active'));
