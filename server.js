@@ -10,6 +10,7 @@ const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
 const db = mysql.createConnection({
+  host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
   database : process.env.DB_NAME,
@@ -390,4 +391,4 @@ app.get('/tagaytay', (req, res) => {
     res.redirect('login');
 });
 
-app.listen(8080, () => console.log('listening on port 3000!'));
+app.listen(process.env.PORT || 3000, () => console.log('listening on port 3000!'));
