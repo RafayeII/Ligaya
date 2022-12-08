@@ -18,13 +18,13 @@ const db = new createPool({
 
 //CREATES SESSION IN DATABASE
 const sessionStore = new MySQLStore({
-  expiration: 10800000,
+  expiration: 60000,
   createDatabaseTable: true,
   schema: {
     tableName: 'session',
     columnNames: {
       session_id: 'session_id',
-      expires: 60000,
+      expires: 'expires',
       data: 'data'
     }
   }
