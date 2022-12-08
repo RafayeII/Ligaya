@@ -10,12 +10,15 @@ const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
 const db = mysql.createPool({
+  connectionLimit : 1000,
+  connectTimeout  : 60 * 60 * 1000,
+  acquireTimeout  : 60 * 60 * 1000,
+  timeout         : 60 * 60 * 1000,
   host     : process.env.DB_HOST,
   port     : process.env.PORT,
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
   database : process.env.DB_NAME,
-  connectionLimit : 10
 });
 
 //CREATES SESSION IN DATABASE
