@@ -38,7 +38,7 @@ const sessionStore = new MySQLStore({
 db.connect(function(err) {
   if (err) {
     console.error('error connecting: ' + err.stack);
-    db.release()
+    db.release();
     return;
   }
   else
