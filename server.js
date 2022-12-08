@@ -9,16 +9,11 @@ const bcrypt = require('bcrypt');
 const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
-const db = mysql.createPool({
-  connectionLimit : 1000,
-  connectTimeout  : 10000000000,
-  acquireTimeout  : 10000000000,
-  timeout         : 10000000000,
+const db = mysql.createConnection({
   host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,
-  database : process.env.DB_NAME, 
-  port     : process.env.PORT
+  database : process.env.DB_NAME,
 });
 
 //CREATES SESSION IN DATABASE
@@ -34,6 +29,16 @@ const sessionStore = new MySQLStore({
     }
   }
 }, db);
+
+//CONFIRMS CONNECTION OR THROWS ERROR
+db.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+  else
+    console.log('connected as ID' + db.threadId);
+});
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -387,4 +392,4 @@ app.get('/tagaytay', (req, res) => {
 });
 
 //PORT IS 3000
-app.listen(process.env.PORT, () => console.log('Website is Active'));
+app.listen(3000, () => console.log('Website is Active'));
