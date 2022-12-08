@@ -14,7 +14,6 @@ const db = mysql.createPool({
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,
   database : process.env.DB_NAME,
-  port     : process.env.PORT,
   connectionLimit : 100	 
 });
 
@@ -384,4 +383,4 @@ app.get('/tagaytay', (req, res) => {
 });
 
 //PORT IS 3000
-app.listen(process.env.PORT || 3000, () => console.log('Website is Active'));
+app.listen(3000, () => console.log('Website is Active'));
