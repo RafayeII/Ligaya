@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
-const db = mysql.createPool({
+const db = new createPool({
   host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,
