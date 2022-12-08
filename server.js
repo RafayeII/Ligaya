@@ -2,24 +2,24 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser')
-const {createPool} = require('mysql');
+const mysql = require('mysql');
 const MySQLStore = require('express-mysql-session')(session);
 const bcrypt = require('bcrypt');
 
 const app = express();
 
 //CONNECTS TO THE LIGAYA.SQL DATABASE USING WORKBENCH
-const db = new createPool({
+const db = mysql.createConnection({
   host     : process.env.DB_HOST,
   user     : process.env.DB_USER,
-  password : process.env.DB_PASS,
+  password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
   database : process.env.DB_NAME,
-  queryTimeout : 60000
+  
 });
 
 //CREATES SESSION IN DATABASE
 const sessionStore = new MySQLStore({
-  expiration: 60000,
+  expiration: 10800000,
   createDatabaseTable: true,
   schema: {
     tableName: 'session',
@@ -30,6 +30,17 @@ const sessionStore = new MySQLStore({
     }
   }
 }, db);
+
+//CONFIRMS CONNECTION OR THROWS ERROR
+db.connect(function(err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    db.disconnect();
+    return;
+  }
+  else
+    console.log('connected as ID' + db.threadId);
+});
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -315,6 +326,112 @@ app.get('/tournament', (req, res) => {
     res.redirect('login');
 });
 
+app.post('/conferencepost', (req, res) => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+  today = mm + '/' + dd + '/' + yyyy;
+
+  let data = {
+    title: req.body.title,
+    description: req.body.description,
+    username: req.session.userinfo,
+    date: today 
+  };
+
+  db.query('INSERT INTO conference SET ?', data, (err) => {
+    if(err) throw err;
+    else
+      res.redirect('conference');
+  });
+});
+
+app.get('/conference', (req, res) => {
+  if(req.session.userinfo) {
+    db.query('SELECT * FROM conference', (err, result) => {
+      if(err) throw err;
+      else 
+        res.render('conference', {
+          conference: result
+        });
+    });
+  }
+  else
+    res.redirect('login');
+});
+
+app.post('/seminarpost', (req, res) => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+  today = mm + '/' + dd + '/' + yyyy;
+
+  let data = {
+    title: req.body.title,
+    description: req.body.description,
+    username: req.session.userinfo,
+    date: today 
+  };
+
+  db.query('INSERT INTO seminar SET ?', data, (err) => {
+    if(err) throw err;
+    else
+      res.redirect('seminar');
+  });
+});
+
+app.get('/seminar', (req, res) => {
+  if(req.session.userinfo) {
+    db.query('SELECT * FROM seminar', (err, result) => {
+      if(err) throw err;
+      else 
+        res.render('seminar', {
+          seminar: result
+        });
+    });
+  }
+  else
+    res.redirect('login');
+});
+
+app.post('/talkshowpost', (req, res) => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+  today = mm + '/' + dd + '/' + yyyy;
+
+  let data = {
+    title: req.body.title,
+    description: req.body.description,
+    username: req.session.userinfo,
+    date: today 
+  };
+
+  db.query('INSERT INTO talkshow SET ?', data, (err) => {
+    if(err) throw err;
+    else
+      res.redirect('talkshow');
+  });
+});
+
+app.get('/talkshow', (req, res) => {
+  if(req.session.userinfo) {
+    db.query('SELECT * FROM talkshow', (err, result) => {
+      if(err) throw err;
+      else 
+        res.render('talkshow', {
+          talkshow: result
+        });
+    });
+  }
+  else
+    res.redirect('login');
+});
+
+
 //ROUTES TO THE INDIVIDUAL VIEW PAGES//
 app.get('/', (req, res) => {
   res.render('landing', );
@@ -328,8 +445,9 @@ app.get('/register', (req, res) => {
 
 //VIEW PAGES THAT NEEDS LOGIN
 app.get('/index', (req, res) => {
-  if(req.session.userinfo) 
+  if(req.session.userinfo) { 
     res.render('index');
+  }
   else
     res.redirect('login');
 });
@@ -345,39 +463,81 @@ app.get('/password', (req, res) => {
   else
     res.redirect('login');
 });
+
 app.get('/manila', (req, res) => {
   if(req.session.userinfo)
-    res.render('manila');
+    db.query('SELECT * FROM manila', (err, result) => {
+      if(err) throw err;
+        else
+          res.render('manila', {
+            manila: result
+        });
+    });
   else
     res.redirect('login');
 });
+
 app.get('/taguig', (req, res) => {
   if(req.session.userinfo)
-    res.render('taguig');
+    db.query('SELECT * FROM taguig', (err, result) => {
+      if(err) throw err;
+        else
+          res.render('taguig', {
+            taguig: result
+        });
+    });
   else
     res.send('login');
 });
+
 app.get('/makati', (req, res) => {
   if(req.session.userinfo)
-    res.render('makati');
+    db.query('SELECT * FROM makati', (err, result) => {
+      if(err) throw err;
+        else
+          res.render('makati', {
+            makati: result
+        });
+    });
   else
     res.redirect('login');
 });
+
 app.get('/quezon', (req, res) => {
   if(req.session.userinfo)
-    res.render('quezon');
+    db.query('SELECT * FROM quezon', (err, result) => {
+      if(err) throw err;
+        else
+          res.render('quezon', {
+            quezon: result
+        });
+    });
   else
     res.send('login');
 });
+
 app.get('/pasay', (req, res) => {
   if(req.session.userinfo)
-    res.render('pasay');
+    db.query('SELECT * FROM pasay', (err, result) => {
+      if(err) throw err;
+        else
+          res.render('pasay', {
+            pasay: result
+        });
+    });
   else
     res.redirect('login');
 });
+
 app.get('/tagaytay', (req, res) => {
   if(req.session.userinfo)
-    res.render('tagaytay');
+    db.query('SELECT * FROM tagaytay', (err, result) => {
+      if(err) throw err;
+        else
+          res.render('tagaytay', {
+            tagaytay: result
+        });
+    });
   else
     res.redirect('login');
 });
