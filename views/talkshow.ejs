@@ -6,51 +6,54 @@
     <link rel="stylesheet" href="css/post.css">
 </head>
 <body>
-<div class="div-body">
-    <%- include('header'); -%>
-    <div class="background">
-        <img src="imgs/login-page.png"/>
-    </div>
-    <div class="main-body">
-        <div class="section" id="s1">
-            <div class="eventsContainer">
-                <div class="event_name"><h1>TALK SHOW</h1></div>
-                <div class="event_picture"><img src="imgs/talkshow.jpeg"></div>
-                <div class="event_details">
-                    <h2>DESCRIPTION</h2>
-                    <p>talk show, radio or television program in which a well-known personality interviews celebrities and other guests. The late-night television programs hosted by Johnny Carson, Jay Leno, David Letterman, and Conan O'Brien, for example, emphasized entertainment, incorporating interludes of music or comedy.</p>
+    <div class="div-body">
+        <%- include('header'); -%>
+        <div class="background">
+            <img src="imgs/login-page.png"/>
+        </div>
+        
+        <div class="main-body">
+            <div class="section" id="s1">
+                <div class="eventsContainer">
+                    <div class="event_name"><h1>TALK SHOW</h1></div>
+                    <div class="event_picture"><img src="imgs/talkshow.jpeg"></div>
+                    <div class="event_details">
+                        <h2>DESCRIPTION</h2>
+                        <p>talk show, radio or television program in which a well-known personality interviews celebrities and other guests. The late-night television programs hosted by Johnny Carson, Jay Leno, David Letterman, and Conan O'Brien, for example, emphasized entertainment, incorporating interludes of music or comedy.</p>
 
-                    <br><br>
+                        <br><br>
 
-                    <h2>REQUIREMENTS</h2>
-                    <p>Casual attire</p>
+                        <h2>REQUIREMENTS</h2>
+                        <p>Casual attire</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="section" id="s2">
-            <div class="postContainer">
-                <div class="post-section" id="create-sec">
-                    <div class="user-post-container">
-                        <form action="/conferencepost" method="post">
-                            <h3>CREATE A POST</h3>
-                            <label for="title">Title</label>
-                            <input type="text" id="title" name="title" placeholder="What's the title?" required>
-                            <label for="description">Description</label>
-                            <textarea id="description" name="description" rows="5" placeholder="What's on your mind?"></textarea>
-                            <button type="submit" id="postBtn">Submit</button>
-                        </form>
+
+            <div class="section" id="s2">
+                <div class="postContainer">
+                    <div class="post-section" id="create-sec">
+                        <div class="user-post-container">
+                            <form action="/conferencepost" method="post">
+                                <h3>CREATE A POST</h3>
+                                <label for="title">Title</label>
+                                <input type="text" id="title" name="title" placeholder="What's the title?" required>
+                                <label for="description">Description</label>
+                                <textarea id="description" name="description" rows="5" placeholder="What's on your mind?"></textarea>
+                                <button type="submit" id="postBtn">Submit</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div class="post-section" id="nav-sec">
-                <!--------------------------- POST NAVBAR --------------------------->
-                    <div class="post-filter container">
-                        <span class="filter-item active-filter" data-filter='all'>All</span>           
-                        <span class="filter-item" data-filter='posts'>Posts</span>
-                        <span class="filter-item" data-filter='reviews'>Reviews</span>
-                        <span class="filter-item" data-filter='groups'>Groups</span>
+
+                    <div class="post-section" id="nav-sec">
+                    <!--------------------------- POST NAVBAR --------------------------->
+                        <div class="post-filter container">
+                            <span class="filter-item active-filter" data-filter='all'>All</span>           
+                            <span class="filter-item" data-filter='posts'>Posts</span>
+                            <span class="filter-item" data-filter='reviews'>Reviews</span>
+                            <span class="filter-item" data-filter='groups'>Groups</span>
+                        </div>
                     </div>
-                </div>
-                <div class="post-section" id="posting">
+                    <div class="post-section" id="posting">
                         <!-- Posts -->
                         <section class="post-container">
 
@@ -75,11 +78,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <%- include('footer'); -%>
     </div>
-    <%- include('footer'); -%>
-</div>
-<!-- Link to js -->
-<script type="text/javascript" src="js/post.js"></script>
-<!-- BODY END -->
+    <!-- Link to js -->
+    <script type="text/javascript" src="js/post.js"></script>
+    <!-- BODY END -->
 </body>
 </html>

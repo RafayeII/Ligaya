@@ -5,24 +5,25 @@
     <link rel="stylesheet" href="css/general.css">
 </head>
 <body>
-<div class="div-body">
-    <div class="main-body">
-        <%- include('header'); -%>
-        <div class="background">
-            <img src="imgs/login-page.png"/>
+    <div class="div-body">
+        <div class="main-body">
+            <%- include('header'); -%>
+            <div class="background">
+                <img src="imgs/login-page.png"/>
+            </div>
+
+            <div class="city_page">
+                <div class="city_name"><h1>QUEZON</h1></div>
+                    <% quezon.forEach(function(event){ %>
+                        <div class="event_element">
+                            <div class="name"><p><%=event.name%></p></div>
+                                <a href="<%=event.url%>">
+                                    <div class="details"><p>View Details</p></div>
+                                </a>
+                        </div>
+                    <% }); %>
+            </div>
         </div>
-        <div class="city_page">
-            <div class="city_name"><h1>QUEZON</h1></div>
-                <% quezon.forEach(function(event){ %>
-                    <div class="event_element">
-                        <div class="name"><p><%=event.name%></p></div>
-                            <a href="<%=event.url%>">
-                                <div class="details"><p>View Details</p></div>
-                            </a>
-                    </div>
-                <% }); %>
-         </div>
-    </div>
     <%- include('footer'); -%>
-</div>
+    </div>
 </body>
