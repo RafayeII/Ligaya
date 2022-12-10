@@ -51,6 +51,9 @@
                         <% if(pass != confirm){ %>
                         <p class="error-msg"> Password Did Not Match! </p>
                         <% } %>
+                        <% if(username == available){ %>
+                            <p class="error-msg"> Username Already Exists! </p>
+                        <% } %>
                         <div class="button-box">
                             <input type="submit" class="R_SignUpBtn" value="REGISTER"><br>
                         </div>             

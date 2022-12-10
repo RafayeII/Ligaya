@@ -44,7 +44,7 @@ app.use(session ({
 }))
 
 app.post('/register', async (req, res) => {
-  try {
+
     //PASSWORD HASHING
     const salt = await bcrypt.genSalt(1)
     const hashedPassword = await bcrypt.hash(req.body.Password, salt)
@@ -56,28 +56,43 @@ app.post('/register', async (req, res) => {
       username: req.body.Username,
       password: hashedPassword //SENDS THE HASH PASSOWRD TO DATABASE
     };
-  
+
     //CHECK IF THE TWO PASSWORD INPUTS MATCH
     if(req.body.Password == req.body.ConfirmPassword){
-      let sql = 'INSERT INTO users SET ?';
-      //REGISTER NEW USER TO DATABASE
-      db.query(sql,data,(err) => {
-        if(err) throw err
-      });
-      //ADDS A BLANK PROFILE FOR THE NEW USER
-      db.query('INSERT INTO profile (username) VALUES (?)', data.username, (err) => {
+      db.query('SELECT * FROM users', (err, result) => {
         if(err) throw err;
+        //CHECKS IF USRENAME ALREADY EXISTS
+        for (i=0; i < result.length; i++) {
+          if (req.body.Username == result[i].username) {
+            res.render('register', {
+              pass: req.body.Password,
+              confirm: req.body.ConfirmPassword,
+              username: req.body.username,
+              available: req.body.username
+            });
+          }
+          else {
+            //REGISTER NEW USER TO DATABASE
+            let sql = 'INSERT INTO users SET ?';
+            db.query(sql,data,(err) => {
+              if(err) throw err
+            });
+            //ADDS A BLANK PROFILE FOR THE NEW USER
+            db.query('INSERT INTO profile (username) VALUES (?)', data.username, (err) => {
+              if(err) throw err;
+            });
+            res.redirect('/login');
+          }
+        }
       });
-      res.redirect('/login');
     }
     else
       res.render('register', {
         pass: req.body.Password,
-        confirm: req.body.ConfirmPassword
+        confirm: req.body.ConfirmPassword,
+        username: req.body.username,
+        available: "" 
       });
-  } catch {
-    res.status(500).send()
-  }
 });
 
 app.post('/login', (req, res) => {
@@ -439,7 +454,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register', {
     pass: req.body.Password,
-    confirm: req.body.ConfirmPassword
+    confirm: req.body.ConfirmPassword,
+    username: req.body.username,
+    available: ""
   });
 });
 
