@@ -234,7 +234,7 @@ label {
     transition: 0.2s;
 }
 
-.joingroupbtn:hover{
+.joingroupbtn:hover, .deletegroupbtn:hover{
    color: white;
    background: #2196f3;
    box-shadow: 0 0 10px #2196f3;
