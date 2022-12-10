@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <title>Event Page</title>
+    <link rel="stylesheet" href="css/details.css">
+    <link rel="stylesheet" href="css/general.css">
+</head>
+<body>
+<div class="div-body">
+    <%- include('header'); -%>
+    <div class="background">
+        <img src="imgs/login-page.png" class="background"/>
+    </div>
+    <div class="main-body">
+        <div class="section" id="s1">
+            <div class="eventsContainer">
+                <div class="event_name"><h2><%= location %></h2></div>
+                <br>
+                <div class="event_name"><h1><%= name %></h1></div>
+                <br>
+                <div class="event_name"><%= date %></div>
+                <div class="event_user">by <%= username %></div>
+                <div class="event_picture"><img src=""></div>
+                <div class="event_details">
+                    <h2>DESCRIPTION</h2>
+                    <p><%= description %></p>
+                </div>
+             </div>
+        </div>
+    </div>    
+    <%- include('footer'); -%>
+</div>
+</body>
+</html>

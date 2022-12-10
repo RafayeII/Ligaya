@@ -141,30 +141,36 @@ app.post('/login', (req, res) => {
 });
 
 app.post("/search", (req, res) => {
-  let user = req.body.search
+  let search = req.body.search
 
-  db.query('SELECT * FROM profile WHERE username = ?',[user],(err,result) => {
+  db.query('SELECT * FROM profile WHERE username = ?',[search],(err,result1) => {
     if(err) throw err
-    //CHECKS IF USER EXISTS IN DATABASE
-    else if (result.length > 0) {
-      res.render('users', {
-        //RETURNS USER'S PROFILE TO DISPLAY ON PAGE
-        username: user,
-        bio: result[0].biography,
-        hobby: result[0].hobbies,
-        contact: result[0].contacts,
-        link: result[0].links
-      });
-    }
-    else 
-      res.render('users', {
-        //RETURNS BLANK PAGE
-        username: 'User does not Exist!',
-        bio: 'No Data',
-        hobby: 'No Data',
-        contact: 'No Data',
-        link: 'No Data'
-      });
+    db.query('SELECT * FROM events WHERE name = ?',[search], (err, result2) => {
+      if(err) throw err
+      //CHECKS IF USER EXISTS IN DATABASE
+      else if (result1.length > 0) {
+        res.render('users', {
+          //RETURNS USER'S PROFILE TO DISPLAY ON PAGE
+          username: result1[0].username,
+          bio: result1[0].biography,
+          hobby: result1[0].hobbies,
+          contact: result1[0].contacts,
+          link: result1[0].links
+        });
+      }
+      else if (result2.length > 0) {
+          res.render('events', {
+            //RETURNS EVENT TO DISPLAY ON PAGE
+            location: result2[0].location,
+            name: result2[0].name,
+            date: result2[0].date,
+            username: result2[0].username,
+            description: result2[0].description
+          });
+      } 
+      else
+        res.redirect('back');
+    });
   });
 });
 
