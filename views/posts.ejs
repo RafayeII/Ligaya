@@ -18,7 +18,7 @@
                         <h3>CREATE A POST</h3>
                         <div class="dropbox">
                             <div class="location-drop">
-                                <select class="location" name="location" required>
+                                <select class="location" name="location" maxlength="45" required>
                                     <option value=""> -LOCATION- </option>
                                     <% for (let i=0; i<post1.length; i++){ %>
                                     <option value="<%= post1[i].location %>"><%= post1[i].name %></option>
@@ -26,7 +26,7 @@
                                 </select>
                             </div>  
                             <div class="event-drop">
-                                <select class="event" name="event" required>
+                                <select class="event" name="event" maxlength="45" required>
                                     <option value=""> -EVENT- </option>
                                     <% for (let i=0; i<post2.length; i++){ %>
                                     <option value="<%= post2[i].name %>"><%= post2[i].name %></option>
@@ -35,9 +35,9 @@
                             </div> 
                         </div>
                         <label for="title">Title</label>
-                        <input type="text" id="title" name="title" placeholder="What's the title?" required>
+                        <input type="text" id="title" name="title" placeholder="What's the title?" maxlength="45" required>
                         <label for="description">Description</label>
-                        <textarea id="description" name="description" rows="5" placeholder="What's on your mind?"></textarea>
+                        <textarea id="description" name="description" rows="5" placeholder="What's on your mind?" maxlength="300" required></textarea>
                         <button type="submit" id="postBtn">Submit</button>
                     </form>
                 </div>         

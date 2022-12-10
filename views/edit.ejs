@@ -23,14 +23,14 @@
                 
                     <div class="Edit-Profile-Container">
                         <form action="/save" method="post">
-                            <label for="biography" class="Profile-Label">Biography</label>
+                            <label for="biography" class="Profile-Label" maxlength="45">Biography</label>
                             <input type="text" name="Bio" value="<%=user.biography%>">
-                            <label for="biography" class="Profile-Label">Hobbies</label>
+                            <label for="biography" class="Profile-Label" maxlength="45">Hobbies</label>
                             <input type="text" name="Hobby" value="<%=user.hobbies%>">
-                            <label for="biography" class="Profile-Label">Contact</label>
+                            <label for="biography" class="Profile-Label" maxlength="45">Contact</label>
                             <input type="text" name="Contact" value="<%=user.contacts%>">
-                            <label for="biography" class="Profile-Label">Links</label>
-                            <input type="text" name="Link" value="<%=user.links%>">
+                            <label for="biography" class="Profile-Label" maxlength="45">Links</label>
+                            <input type="text" name="Link" value="<%=user.links%>" maxlength="100">
                             <button type="submit" class="R_SaveBtn">SAVE</button>
                         </form>
                     </div>

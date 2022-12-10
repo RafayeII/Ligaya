@@ -241,3 +241,8 @@ footer {
     border-radius: 100%;
     border: 3px solid black;
 }
+
+.error-msg {
+    color: red;
+    text-align: center;
+}

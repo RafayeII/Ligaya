@@ -16,7 +16,7 @@
                     <form action="/createEvent" method="post">
                         <h3>CREATE A EVENT</h3>
                         <label for="title">Event Name</label>
-                        <input type="text" id="title" name="name" placeholder="What's the event name?" required>
+                        <input type="text" id="title" name="name" placeholder="What's the event name?" maxlength="45" required>
                         <div class="dropbox">
                             <select class="event" name="location" required>
                                 <option value=""> -LOCATION- </option>
@@ -28,7 +28,7 @@
                         <label for="title">Event Date</label>
                         <input type="date" id="title" name="date" required>
                         <label for="description">Description</label>
-                        <textarea id="description" name="description" row="5" placeholder="What's going to happen in your event?"></textarea>
+                        <textarea id="description" name="description" row="5" placeholder="What's going to happen in your event?" maxlength="300" required></textarea>
                         <button type="submit" id="postBtn">Submit</button>
                     </form>
                 </div>

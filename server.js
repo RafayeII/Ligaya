@@ -71,7 +71,10 @@ app.post('/register', async (req, res) => {
       res.redirect('/login');
     }
     else
-      res.send('Passwords did not Match!');
+      res.render('register', {
+        pass: req.body.Password,
+        confirm: req.body.ConfirmPassword
+      });
   } catch {
     res.status(500).send()
   }
@@ -80,6 +83,8 @@ app.post('/register', async (req, res) => {
 app.post('/login', (req, res) => {
   let username = req.body.Username;
 	let password = req.body.Password;
+  let key = 0;
+  let key2 = 1;
   
   //CHECKS FOR USERNAME AND PASSWORD INPUTS
   if (username && password) {
@@ -99,12 +104,18 @@ app.post('/login', (req, res) => {
               res.redirect('/index');
             }
             else
-              res.send('Username or Password is Incorrect!');
+              res.render('login', {
+                key: key,
+                key2: key2
+              });
           });
         });
       }
       else  
-        res.send('Username or Password is Incorrect!');
+        res.render('login', {
+            key: key,
+            key2: key2
+        });
     });
   }
 });
@@ -184,12 +195,20 @@ app.post('/savePass', async (req, res) => {
           });
         }
         else
-          res.send('Old Password is Incorrect!');
+        res.render('password', {
+          username: req.session.userinfo,
+          pass : req.body.newPass,
+          confirm : req.body.confirmNewPass
+        });
       });
     });
   }
   else
-    res.send('Passwords did not Match!');
+  res.render('password', {
+    username: req.session.userinfo,
+    pass : req.body.newPass,
+    confirm : req.body.confirmNewPass
+  });
 });
 
 app.get('/profile', (req, res) => {
@@ -407,24 +426,45 @@ app.get('/edit', (req, res) => {
 app.get('/', (req, res) => {
   res.render('landing', );
 });
+
 app.get('/login', (req, res) => {
-  res.render('login');
+  let key = 1;
+  let key2 = 1;
+    res.render('login', {
+      key: key,
+      key2: key2
+    });
 });
+
 app.get('/register', (req, res) => {
-  res.render('register');
+  res.render('register', {
+    pass: req.body.Password,
+    confirm: req.body.ConfirmPassword
+  });
 });
 
 //VIEW PAGES THAT NEEDS LOGIN
 app.get('/index', (req, res) => {
   if(req.session.userinfo) { 
-    res.render('index');
+    db.query('SELECT * FROM cities', (err, result) => {
+      if(err) throw err;
+      else
+        res.render('index', {
+          city : result
+      });
+    });
   }
   else
     res.redirect('login');
 });
+
 app.get('/password', (req, res) => {
   if(req.session.userinfo) 
-    res.render('password', {username: req.session.userinfo});
+    res.render('password', {
+      username: req.session.userinfo,
+      pass : req.body.newPass,
+      confirm : req.body.confirmNewPass
+    });
   else
     res.redirect('login');
 });

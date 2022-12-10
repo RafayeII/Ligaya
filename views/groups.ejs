@@ -17,7 +17,7 @@
                 <form action="/group" method="post">
                     <h3>CREATE A GROUP</h3>
                     <label for="title">Group Name</label>
-                    <input type="text" id="title" name="name" placeholder="What's the group name?" required>
+                    <input type="text" id="title" name="name" placeholder="What's the group name?" maxlength="45" required>
                     <div class="dropbox">
                         <select class="event" name="social" required>
                             <option value=""> -SOCIAL MEDIA- </option>
@@ -27,9 +27,9 @@
                         </select>
                     </div>
                     <label for="description">Description</label>
-                    <textarea id="description" name="description" placeholder="What's your group about?"></textarea>
+                    <textarea id="description" name="description" placeholder="What's your group about?" maxlength="300" required></textarea>
                     <label for="description">Join Link</label>
-                    <input type="text" id="title" name="link" placeholder="What's the link for your group?" required>
+                    <input type="text" id="title" name="link" placeholder="What's the link for your group?" maxlength="100" required>
                     <button type="submit" id="postBtn">Submit</button>
                 </form>
             </div>
