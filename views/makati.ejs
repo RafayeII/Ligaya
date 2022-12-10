@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <title>Makati Events</title>
+    <link rel="stylesheet" href="css/events.css">
+    <link rel="stylesheet" href="css/general.css">
+</head>
+<body>
+    <div class="div-body">
+        <div class="main-body">
+            <%- include('header'); -%>
+            <div class="background">
+                <img src="imgs/login-page.png"/>
+            </div>
+
+            <div class="city_page">
+                <div class="city_name"><h1>MAKATI</h1>
+                    <a href="createEvent" class="createEventbtn">Create</a>
+                </div>
+                    <% events.forEach(function(post){ %>
+                    <div class="post-container">
+                        <div class="post">        
+                            <div class="post-header">
+                                <% if(userLog == post.username){ %>
+                                <a href="editEvent/<%= post.id %>" class="editEventbtn">Edit</a>
+                                <% } %>
+                                <p class="post-title"><%=post.name%></p>
+                                <p class="post-date"><%=post.date%></p>
+                                <% if(userLog == post.username){ %>
+                                <a href="deleteEvent/<%= post.id %>" class="deleteEventbtn">Delete</a>
+                                <% } %>
+                            </div>
+
+                            <div class="desc-title">DESCRIPTION</div>
+                                <p class="desc-body"><%=post.description%></p>
+                            <br>
+                            <div class="profile">
+                                <a href="#"> <img src="imgs/PostPic.png" alt="" class="profile-img"></a>
+                                <a href="#" class="profile-name"><%=post.username%></a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+            </div>          
+        </div>
+    <%- include('footer'); -%>
+    </div>
+</body>
+</html>

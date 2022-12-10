@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+    <title>Edit Event</title>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/general.css">
+</head>
+<body>
+<div class="div-body" id="create-body">
+    <%- include('header'); -%>
+    <div class="background">
+        <img src="/imgs/login-page.png" class="background"/>
+    </div>
+    <div class="main-body" id="create-main">
+        <div class="form_page">
+            <div class="user-post-container">
+                <form action="/editEvent" method="post">
+                    <h3>EDIT <%= name %></h3>
+                    <h3><%= location %></h3>
+                    <input type="hidden" value="<%= Id %>" name="Id">
+                    <label for="title">Event Date</label>
+                    <input type="date" id="title" name="date" value="<%= date %>" required>
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" row="5"></textarea>
+                    <button type="submit" id="postBtn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+    <%- include('footer'); -%>
+</div>
+</body>
+</html>

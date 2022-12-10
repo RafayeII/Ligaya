@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    <title>Create Event</title>
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/general.css">
+</head>
+<body>
+    <div class="div-body" id="create-body">
+        <%- include('header'); -%>
+        <div class="background">
+            <img src="imgs/login-page.png" class="background"/>
+        </div>
+        <div class="main-body" id="create-main">
+            <div class="form_page">
+                <div class="user-post-container">
+                    <form action="/createEvent" method="post">
+                        <h3>CREATE A EVENT</h3>
+                        <label for="title">Event Name</label>
+                        <input type="text" id="title" name="name" placeholder="What's the event name?" required>
+                        <div class="dropbox">
+                            <select class="event" name="location" required>
+                                <option value=""> -LOCATION- </option>
+                                <% for (let i=0; i<city.length; i++){ %>
+                                <option value="<%= city[i].name %>"><%= city[i].name %></option>
+                                <% }; %>
+                            </select>
+                        </div> 
+                        <label for="title">Event Date</label>
+                        <input type="date" id="title" name="date" required>
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" row="5" placeholder="What's going to happen in your event?"></textarea>
+                        <button type="submit" id="postBtn">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>    
+        <%- include('footer'); -%>
+    </div>
+</body>
+</html>

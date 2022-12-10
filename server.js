@@ -19,7 +19,7 @@ const db = new createPool({
 
 //CREATES SESSION IN DATABASE
 const sessionStore = new MySQLStore({
-  expiration: 60000,
+  expiration: 10800000,
   createDatabaseTable: true,
   schema: {
     tableName: 'session',
@@ -138,12 +138,15 @@ app.post("/search", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  //DESTROYS THE SESSION ENTRY IN THE DATABASE
-  req.session.destroy(function(err){
-    if (err) throw err;
-    else
-      res.redirect("/");
-  });
+  if(req.session.userinfo)
+    //DESTROYS THE SESSION ENTRY IN THE DATABASE
+    req.session.destroy(function(err){
+      if (err) throw err;
+      else
+        res.redirect("/");
+    });
+  else
+    res.redirect('login');
 });
 
 app.post('/save', (req, res) => {
@@ -210,34 +213,23 @@ app.get('/profile', (req, res) => {
     res.redirect('login');
 });
 
-app.post('/funrunpost', (req, res) => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //JANUARY IS 0
-  var yyyy = today.getFullYear();
-  today = mm + '/' + dd + '/' + yyyy;
-
-  let data = {
-    title: req.body.title,
-    description: req.body.description,
-    username: req.session.userinfo,
-    date: today 
-  };
-
-  db.query('INSERT INTO funruns SET ?', data, (err) => {
-    if(err) throw err;
-    else
-      res.redirect('funrun');
-  });
-});
-
-app.get('/funrun', (req, res) => {
-  if(req.session.userinfo) { 
-    db.query('SELECT * FROM funruns', (err, result) => {
+app.get('/posts', (req, res) => {
+  if(req.session.userinfo) {
+    db.query('SELECT * FROM cities', (err, result1) => {
       if(err) throw err;
-      else
-        res.render('funrun', {
-          funruns: result
+        db.query('SELECT * FROM events', (err, result2) => {
+          if(err) throw err;
+          db.query('SELECT * FROM posts ORDER BY id DESC', (err, result3) => {
+            if(err) throw err;
+            else {
+              res.render('posts', {
+                post1: result1,
+                post2: result2,
+                post3: result3,
+                userLog : req.session.userinfo
+              });
+            }
+          });
         });
     });
   }
@@ -245,7 +237,7 @@ app.get('/funrun', (req, res) => {
     res.redirect('login');
 });
 
-app.post('/festivalpost', (req, res) => {
+app.post('/posts', (req, res) => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -254,172 +246,162 @@ app.post('/festivalpost', (req, res) => {
 
   let data = {
     title: req.body.title,
+    location: req.body.location,
+    event: req.body.event,
     description: req.body.description,
     username: req.session.userinfo,
     date: today 
   };
 
-  db.query('INSERT INTO festivals SET ?', data, (err) => {
+  db.query('INSERT INTO posts SET ?', data, (err) => {
     if(err) throw err;
     else
-      res.redirect('festival');
+      res.redirect('posts');
   });
 });
 
-app.get('/festival', (req, res) => {
-  if(req.session.userinfo) {
-    db.query('SELECT * FROM festivals', (err, result) => {
-      if(err) throw err;
-      else
-        res.render('festival', {
-          festivals: result
-        });
-    });
-  }
-  else
-    res.redirect('login');
-});
-
-app.post('/tournamentpost', (req, res) => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var yyyy = today.getFullYear();
-  today = mm + '/' + dd + '/' + yyyy;
-
+app.post('/group', (req, res) => {
   let data = {
-    title: req.body.title,
-    description: req.body.description,
     username: req.session.userinfo,
-    date: today 
+    name: req.body.name,
+    description: req.body.description,
+    social: req.body.social,
+    link: req.body.link
   };
 
-  db.query('INSERT INTO tournaments SET ?', data, (err) => {
+  db.query('INSERT INTO groupings SET ?', data, (err) => {
     if(err) throw err;
     else
-      res.redirect('tournament');
+      res.redirect('groups');
   });
 });
 
-app.get('/tournament', (req, res) => {
-  if(req.session.userinfo) {
-    db.query('SELECT * FROM tournaments', (err, result) => {
+app.get('/groups', (req, res) => {
+  if(req.session.userinfo)
+    db.query('SELECT * FROM groupings', (err, result) => {
       if(err) throw err;
       else 
-        res.render('tournament', {
-          tournaments: result
+        res.render('groups', {
+          userLog: req.session.userinfo,
+          groups: result
         });
     });
-  }
   else
     res.redirect('login');
 });
 
-app.post('/conferencepost', (req, res) => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var yyyy = today.getFullYear();
-  today = mm + '/' + dd + '/' + yyyy;
+app.get('/deletePost/:Id',(req, res) => {
+  const Id = req.params.Id;
 
-  let data = {
-    title: req.body.title,
-    description: req.body.description,
-    username: req.session.userinfo,
-    date: today 
-  };
+  if(req.session.userinfo)
+    db.query('DELETE from posts WHERE id = ?', [Id],(err, result) => {
+        if(err) throw err;
+        else 
+          res.redirect('back');
+    });
+  else
+    res.redirect('login');
+});
 
-  db.query('INSERT INTO conference SET ?', data, (err) => {
-    if(err) throw err;
+app.get('/deleteGroup/:Id',(req, res) => {
+  const Id = req.params.Id;
+
+  if(req.session.userinfo)
+    db.query('DELETE from groupings WHERE id = ?', [Id],(err, result) => {
+        if(err) throw err;
+        else 
+          res.redirect('back');
+    });
+  else
+    res.redirect('login');
+});
+
+app.post('/editEvent',(req, res) => {
+  const Id = req.body.Id
+  console.log(req.params.Id);
+  db.query('UPDATE events SET date = ?, description = ? WHERE id = ?',[req.body.date, req.body.description, Id], (err) => {
+    if(err) throw err
     else
-      res.redirect('conference');
+      res.redirect('index');
   });
 });
 
-app.get('/conference', (req, res) => {
-  if(req.session.userinfo) {
-    db.query('SELECT * FROM conference', (err, result) => {
-      if(err) throw err;
-      else 
-        res.render('conference', {
-          conference: result
+app.get('/editEvent/:Id',(req, res) => {
+  const Id = req.params.Id;
+
+  if(req.session.userinfo)
+    db.query('SELECT * FROM events WHERE id = ?', [Id],(err, result) => {
+        if(err) throw err;
+        else  {
+          res.render('editEvent', {
+            name : result[0].name,
+            location : result[0].location,
+            Id : result[0].id,
+            description : result[0].description,
+            date : result[0].date
         });
+      }
     });
-  }
   else
     res.redirect('login');
 });
 
-app.post('/seminarpost', (req, res) => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var yyyy = today.getFullYear();
-  today = mm + '/' + dd + '/' + yyyy;
+app.get('/deleteEvent/:Id',(req, res) => {
+  const Id = req.params.Id;
 
+  if(req.session.userinfo)
+    db.query('DELETE from events WHERE id = ?', [Id],(err, result) => {
+        if(err) throw err;
+        else 
+          res.redirect('back');
+    });
+  else
+    res.redirect('login');
+});
+
+app.get('/createEvent', (req, res) => {
+  if(req.session.userinfo)
+    db.query('SELECT * FROM cities', (err, result) => {
+      if(err) throw err;
+      else {
+        res.render('createEvent', {
+          city: result
+        });
+    }
+  });
+  else
+    res.redirect('login');
+});
+
+app.post('/createEvent', (req, res) => {
   let data = {
-    title: req.body.title,
-    description: req.body.description,
+    location: req.body.location,
     username: req.session.userinfo,
-    date: today 
+    name: req.body.name,
+    description: req.body.description,
+    date: req.body.date
   };
 
-  db.query('INSERT INTO seminar SET ?', data, (err) => {
+  db.query('INSERT INTO events SET ?', data, (err) => {
     if(err) throw err;
     else
-      res.redirect('seminar');
+      res.redirect('index');
   });
 });
 
-app.get('/seminar', (req, res) => {
-  if(req.session.userinfo) {
-    db.query('SELECT * FROM seminar', (err, result) => {
+app.get('/edit', (req, res) => {
+  if(req.session.userinfo)
+    db.query('SELECT * FROM profile WHERE username = ?', req.session.userinfo, (err, result) => {
       if(err) throw err;
-      else 
-        res.render('seminar', {
-          seminar: result
-        });
-    });
-  }
-  else
-    res.redirect('login');
-});
-
-app.post('/talkshowpost', (req, res) => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var yyyy = today.getFullYear();
-  today = mm + '/' + dd + '/' + yyyy;
-
-  let data = {
-    title: req.body.title,
-    description: req.body.description,
-    username: req.session.userinfo,
-    date: today 
-  };
-
-  db.query('INSERT INTO talkshow SET ?', data, (err) => {
-    if(err) throw err;
-    else
-      res.redirect('talkshow');
+      else {
+        res.render('edit', {
+          user: result[0]
+      });
+    }
   });
-});
-
-app.get('/talkshow', (req, res) => {
-  if(req.session.userinfo) {
-    db.query('SELECT * FROM talkshow', (err, result) => {
-      if(err) throw err;
-      else 
-        res.render('talkshow', {
-          talkshow: result
-        });
-    });
-  }
   else
     res.redirect('login');
 });
-
 
 //ROUTES TO THE INDIVIDUAL VIEW PAGES//
 app.get('/', (req, res) => {
@@ -440,12 +422,6 @@ app.get('/index', (req, res) => {
   else
     res.redirect('login');
 });
-app.get('/edit', (req, res) => {
-  if(req.session.userinfo)
-  res.render('edit', {username: req.session.userinfo})//DISPLAYS THE PROFILE FOR THAT USER IN SESSION
-  else
-    res.redirect('login');
-});
 app.get('/password', (req, res) => {
   if(req.session.userinfo) 
     res.render('password', {username: req.session.userinfo});
@@ -455,11 +431,12 @@ app.get('/password', (req, res) => {
 
 app.get('/manila', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM manila', (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ?', ['Manila'], (err, result) => {
       if(err) throw err;
         else
           res.render('manila', {
-            manila: result
+            events: result,
+            userLog: req.session.userinfo
         });
     });
   else
@@ -468,11 +445,12 @@ app.get('/manila', (req, res) => {
 
 app.get('/taguig', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM taguig', (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ?', ['Taguig'], (err, result) => {
       if(err) throw err;
         else
           res.render('taguig', {
-            taguig: result
+            events: result,
+            userLog: req.session.userinfo
         });
     });
   else
@@ -481,11 +459,12 @@ app.get('/taguig', (req, res) => {
 
 app.get('/makati', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM makati', (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ?', ['Makati'], (err, result) => {
       if(err) throw err;
         else
           res.render('makati', {
-            makati: result
+            events: result,
+            userLog: req.session.userinfo
         });
     });
   else
@@ -494,11 +473,12 @@ app.get('/makati', (req, res) => {
 
 app.get('/quezon', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM quezon', (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ?', ['Quezon'], (err, result) => {
       if(err) throw err;
         else
           res.render('quezon', {
-            quezon: result
+            events: result,
+            userLog: req.session.userinfo
         });
     });
   else
@@ -507,11 +487,12 @@ app.get('/quezon', (req, res) => {
 
 app.get('/pasay', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM pasay', (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ?', ['Pasay'], (err, result) => {
       if(err) throw err;
         else
           res.render('pasay', {
-            pasay: result
+            events: result,
+            userLog: req.session.userinfo
         });
     });
   else
@@ -520,11 +501,12 @@ app.get('/pasay', (req, res) => {
 
 app.get('/tagaytay', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM tagaytay', (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ?', ['Tagaytay'], (err, result) => {
       if(err) throw err;
         else
           res.render('tagaytay', {
-            tagaytay: result
+            events: result,
+            userLog: req.session.userinfo
         });
     });
   else
