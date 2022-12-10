@@ -317,7 +317,7 @@ app.post('/group', (req, res) => {
 
 app.get('/groups', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM groupings', (err, result) => {
+    db.query('SELECT * FROM groupings ORDER BY id DESC', (err, result) => {
       if(err) throw err;
       else 
         res.render('groups', {
@@ -493,7 +493,7 @@ app.get('/password', (req, res) => {
 
 app.get('/manila', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM events WHERE location = ?', ['Manila'], (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ? ORDER BY id DESC', ['Manila'], (err, result) => {
       if(err) throw err;
         else
           res.render('manila', {
@@ -507,7 +507,7 @@ app.get('/manila', (req, res) => {
 
 app.get('/taguig', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM events WHERE location = ?', ['Taguig'], (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ? ORDER BY id DESC', ['Taguig'], (err, result) => {
       if(err) throw err;
         else
           res.render('taguig', {
@@ -521,7 +521,7 @@ app.get('/taguig', (req, res) => {
 
 app.get('/makati', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM events WHERE location = ?', ['Makati'], (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ? ORDER BY id DESC', ['Makati'], (err, result) => {
       if(err) throw err;
         else
           res.render('makati', {
@@ -535,7 +535,7 @@ app.get('/makati', (req, res) => {
 
 app.get('/quezon', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM events WHERE location = ?', ['Quezon'], (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ? ORDER BY id DESC', ['Quezon'], (err, result) => {
       if(err) throw err;
         else
           res.render('quezon', {
@@ -549,7 +549,7 @@ app.get('/quezon', (req, res) => {
 
 app.get('/pasay', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM events WHERE location = ?', ['Pasay'], (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ? ORDER BY id DESC', ['Pasay'], (err, result) => {
       if(err) throw err;
         else
           res.render('pasay', {
@@ -563,7 +563,7 @@ app.get('/pasay', (req, res) => {
 
 app.get('/tagaytay', (req, res) => {
   if(req.session.userinfo)
-    db.query('SELECT * FROM events WHERE location = ?', ['Tagaytay'], (err, result) => {
+    db.query('SELECT * FROM events WHERE location = ? ORDER BY id DESC', ['Tagaytay'], (err, result) => {
       if(err) throw err;
         else
           res.render('tagaytay', {

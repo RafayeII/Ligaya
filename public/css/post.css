@@ -85,7 +85,6 @@ label {
 .post-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(1000px, auto));
-    grid-template-columns: 800px 800px;
     justify-content: center;
     gap: 1.5rem;
     height: 710px;
@@ -93,7 +92,7 @@ label {
     overflow: auto;
     background-color: rgba(255, 255, 255, 0.466);
     border-radius: 10px;
-    width: 90%;
+    width: 70%;
 }
 
 .post-box {
