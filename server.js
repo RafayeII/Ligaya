@@ -14,12 +14,13 @@ const db = new createPool({
   user     : process.env.DB_USER,
   password : process.env.DB_PASS,//CHANGE ACCORDING TO YOUR WORKBENCH PASSWORD
   database : process.env.DB_NAME,
-  queryTimeout : 60000
+  queryTimeout : 300000,
+  connectionLimit : 20
 });
 
 //CREATES SESSION IN DATABASE
 const sessionStore = new MySQLStore({
-  expiration: 10800000,
+  expiration: 300000,
   createDatabaseTable: true,
   schema: {
     tableName: 'session',
@@ -56,27 +57,46 @@ app.post('/register', async (req, res) => {
       username: req.body.Username,
       password: hashedPassword //SENDS THE HASH PASSOWRD TO DATABASE
     };
-  
+
     //CHECK IF THE TWO PASSWORD INPUTS MATCH
     if(req.body.Password == req.body.ConfirmPassword){
-      let sql = 'INSERT INTO users SET ?';
-      //REGISTER NEW USER TO DATABASE
-      db.query(sql,data,(err) => {
-        if(err) throw err
-      });
-      //ADDS A BLANK PROFILE FOR THE NEW USER
-      db.query('INSERT INTO profile (username) VALUES (?)', data.username, (err) => {
+      db.query('SELECT * FROM users', (err, result) => {
         if(err) throw err;
+        //CHECKS IF USRENAME ALREADY EXISTS
+        db.query('SELECT * FROM users WHERE username = ? LIMIT 1', [req.body.Username], (err, result) => {
+          if(err) throw err
+          else if (result.length) {
+            res.render('register', {
+              pass: req.body.Password,
+              confirm: req.body.ConfirmPassword,
+              username: req.body.username,
+              available: req.body.username
+            });
+          }
+          else {
+            //REGISTER NEW USER TO DATABASE
+            let sql = 'INSERT INTO users SET ?';
+            db.query(sql,data,(err) => {
+              if(err) throw err
+            });
+            //ADDS A BLANK PROFILE FOR THE NEW USER
+            db.query('INSERT INTO profile (username) VALUES (?)', data.username, (err) => {
+              if(err) throw err;
+            });
+            res.redirect('/login');
+          };
+        });
       });
-      res.redirect('/login');
     }
     else
       res.render('register', {
         pass: req.body.Password,
-        confirm: req.body.ConfirmPassword
+        confirm: req.body.ConfirmPassword,
+        username: req.body.username,
+        available: "" 
       });
   } catch {
-    res.status(500).send()
+      res.send(500);
   }
 });
 
@@ -439,7 +459,9 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register', {
     pass: req.body.Password,
-    confirm: req.body.ConfirmPassword
+    confirm: req.body.ConfirmPassword,
+    username: req.body.username,
+    available: ""
   });
 });
 
