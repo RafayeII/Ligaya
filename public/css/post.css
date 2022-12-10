@@ -90,8 +90,7 @@ label {
     gap: 1.5rem;
     height: 710px;
     /* border: solid 1px yellow; */
-    overflow: scroll;
-    overflow-x: hidden;
+    overflow: auto;
     background-color: rgba(255, 255, 255, 0.466);
     border-radius: 10px;
     width: 90%;
