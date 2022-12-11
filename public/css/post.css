@@ -1,6 +1,5 @@
 /* Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
 /* Variables */
 .Pattern {
     position: fixed;
@@ -92,8 +91,23 @@ label {
     overflow: auto;
     background-color: rgba(255, 255, 255, 0.466);
     border-radius: 10px;
-    width: 70%;
+    width: 1500px;
 }
+
+.group-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1000px, auto));
+    justify-content: center;
+    gap: 1.5rem;
+    height: 510px;
+    /* border: solid 1px yellow; */
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color: rgba(255, 255, 255, 0.466);
+    border-radius: 10px;
+    width: 1500px;
+}
+
 
 .post-box {
     background-color: rgba(255,255,255,.7);
@@ -102,6 +116,7 @@ label {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     padding: 15px;
     border-radius: 0.8rem;
+    width: 1000px;
 }
 
 .post-img {

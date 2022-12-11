@@ -24,6 +24,22 @@ body {
     /* border: solid 1px pink; */
 }
 
+.div-body-group {
+    height: 1700px;
+    display: flex;
+    flex-direction: column; 
+    
+    background-color: rgba(0, 0, 0, 0.71);
+    /* border: solid 1px pink; */
+}
+
+.main-body-group {
+    height: 1350px;
+    display: flex;
+    flex-direction: column;
+    /* border: solid 1px green; */
+}
+
 #create-body {
     height: 1140px;
     display: flexbox;
