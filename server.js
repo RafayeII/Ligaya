@@ -169,7 +169,7 @@ app.post("/search", (req, res) => {
           });
       } 
       else
-        res.redirect('back');
+        res.redirect('index');
     });
   });
 });

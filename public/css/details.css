@@ -73,11 +73,15 @@ body {
 .event_user {
     width: 100%;
     font-size: 35px;
-    color: #000;
+    color: blue;
     display: flex;
     justify-content: center;
     margin-bottom: -1%;
     margin-top: 10px;
+}
+
+#date {
+    color: gray;
 }
 
 .event_picture img {
