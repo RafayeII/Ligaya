@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="css/post.css">
 </head>
 <body>
-<div class="div-body">
+<div class="div-body-group">
     <%- include('header'); -%>
     <div class="background">
         <img src="imgs/login-page.png" class="background"/>
     </div>
-    <div class="main-body">
+    <div class="main-body-group">
         <div class="form_page">
             <div class="user-post-container">
                 <form action="/group" method="post">
@@ -30,7 +30,7 @@
                     <label for="description">Description</label>
                     <textarea id="description" name="description" placeholder="What's your group about?" maxlength="300" required></textarea>
                     <label for="description">Join Link</label>
-                    <input type="text" id="title" name="link" placeholder="What's the link for your group?" maxlength="100" required>
+                    <input type="text" id="title" name="link" placeholder="Format: https://www.<Your Input>" maxlength="100" required>
                     <button type="submit" id="postBtn">Submit</button>
                 </form>
             </div>
@@ -38,7 +38,7 @@
         <div class="section" id="s2">
             <div class="postContainer">
                 <div class="post-section" id="posting">
-                    <section class="post-container">
+                    <section class="group-container">
                         <% groups.forEach(function(post){ %>
                             <div class="GROUPBOX">
                                 <div class="post-box groups join">
