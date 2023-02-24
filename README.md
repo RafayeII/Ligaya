@@ -1,7 +1,7 @@
 LIGAYA 
 - This is a website where you can create and manage your events. You can also create groups and posts talking about different events.
 
-   Note: This Project used NodeJs and MySQL to build the MVC Architecture model.
+   Note: You need MySQL Workbench and Node.js to run this application locally.
 
 NPM PACKAGES
 1. EXPRESS
